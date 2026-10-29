@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A clean, responsive starter website." />
+  <title>Nova — Ideas into reality</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,.07);
+      --text: #f4f6ff;
+      --muted: #aeb7d0;
+      --accent: #a78bfa;
+      --accent2: #67e8f9;
+      --line: rgba(255,255,255,.13);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(ellipse at 80% 0%, #25204f 0%, transparent 38%), var(--bg);
+      color: var(--text); line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+    header { position: sticky; top: 0; z-index: 5; backdrop-filter: blur(16px); background: rgba(11,16,32,.78); border-bottom: 1px solid var(--line); }
+    nav { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 24px; }
+    .logo { font-size: 1.35rem; font-weight: 800; letter-spacing: -.04em; }
+    .logo span { color: var(--accent2); }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: var(--muted); font-size: .95rem; }
+    .nav-links a:hover { color: var(--text); }
+    .menu-btn { display: none; border: 1px solid var(--line); color: var(--text); background: var(--panel); padding: 8px 12px; border-radius: 10px; cursor: pointer; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; border-radius: 12px; font-weight: 700; border: 1px solid transparent; transition: transform .2s, opacity .2s; cursor: pointer; }
+    .button:hover { transform: translateY(-2px); }
+    .primary { background: linear-gradient(120deg, var(--accent), var(--accent2)); color: #11152b; }
+    .secondary { border-color: var(--line); background: var(--panel); color: var(--text); }
+    .hero { padding: 100px 0 80px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 55px; align-items: center; }
+    .eyebrow { display: inline-flex; padding: 6px 11px; border: 1px solid var(--line); border-radius: 99px; color: var(--accent2); font-size: .83rem; margin-bottom: 20px; }
+    h1 { font-size: clamp(2.7rem, 6vw, 5.2rem); line-height: 1.03; letter-spacing: -.065em; margin: 0 0 22px; }
+    h1 em { font-style: normal; background: linear-gradient(120deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { max-width: 560px; color: var(--muted); font-size: 1.1rem; margin: 0 0 28px; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .visual { min-height: 370px; border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(145deg, rgba(167,139,250,.18), rgba(103,232,249,.06)); display: grid; place-items: center; position: relative; overflow: hidden; }
+    .orb { width: 210px; height: 210px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 0 100px rgba(167,139,250,.4); position: relative; }
+    .orb:before, .orb:after { content: ""; position: absolute; inset: -25px; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; transform: rotateX(65deg) rotateZ(25deg); }
+    .orb:after { inset: -50px; transform: rotateX(65deg) rotateZ(-25deg); }
+    .float-card { position: absolute; padding: 13px 16px; border: 1px solid var(--line); border-radius: 14px; background: rgba(11,16,32,.8); backdrop-filter: blur(12px); font-size: .9rem; }
+    .float-card strong { display: block; font-size: 1.1rem; }
+    .fc1 { top: 24px; left: 22px; } .fc2 { right: 18px; bottom: 26px; }
+    section { padding: 70px 0; }
+    .section-head { max-width: 650px; margin-bottom: 34px; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -.045em; margin: 0 0 14px; }
+    .section-head p, .card p { color: var(--muted); margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { padding: 25px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+    .icon { display: grid; place-items: center; width: 45px; height: 45px; border-radius: 13px; background: rgba(167,139,250,.16); font-size: 1.35rem; margin-bottom: 18px; }
+    h3 { margin: 0 0 8px; font-size: 1.2rem; }
+    .about { display: grid; grid-template-columns: .9fr 1.1fr; gap: 45px; align-items: center; }
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
+    .stat { padding: 17px; border: 1px solid var(--line); border-radius: 15px; }
+    .stat strong { display: block; font-size: 1.6rem; color: var(--accent2); }
+    .stat span { color: var(--muted); font-size: .85rem; }
+    .contact-box { display: flex; justify-content: space-between; align-items: center; gap: 25px; padding: 35px; border-radius: 24px; border: 1px solid var(--line); background: linear-gradient(120deg, rgba(167,139,250,.15), rgba(103,232,249,.08)); }
+    footer { padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+    footer .container { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    @media (max-width: 760px) {
+      .hero, .about { grid-template-columns: 1fr; }
+      .hero { padding-top: 65px; gap: 35px; }
+      .visual { min-height: 300px; }
+      .grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; padding: 20px 4%; background: #11162a; border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; }
+      .nav-links.open { display: flex; }
+      .menu-btn { display: inline-block; }
+      .contact-box { align-items: flex-start; flex-direction: column; }
+      .stat-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a class="logo" href="#home">nova<span>.</span></a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu ☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a>
+        <a class="button secondary" href="#contact">Let's talk ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" id="home">
+      <div>
+        <span class="eyebrow">✦ Creative ideas, made real</span>
+        <h1>Build something <em>brilliant.</em></h1>
+        <p>A modern starter website for your next big idea. Share what you do, highlight your services, and make it easy for people to connect with you.</p>
+        <div class="actions">
+          <a class="button primary" href="#services">Explore services →</a>
+          <a class="button secondary" href="#about">Discover Nova</a>
+        </div>
+      </div>
+      <div class="visual" aria-label="Abstract glowing 3D orb illustration">
+        <div class="orb"></div>
+        <div class="float-card fc1">✨ <strong>Fresh thinking</strong><span>Ideas without limits</span></div>
+        <div class="float-card fc2">↗ <strong>Made to grow</strong><span>Built for what's next</span></div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">What we do</span>
+          <h2>Everything you need to move forward.</h2>
+          <p>Use these cards to introduce your services, products, or the things that make your business special.</p>
+        </div>
+        <div class="grid">
+          <article class="card"><div class="icon">✦</div><h3>Creative strategy</h3><p>Turn big ideas into a clear plan, with goals and direction that make sense.</p></article>
+          <article class="card"><div class="icon">⌘</div><h3>Digital experiences</h3><p>Create simple, polished experiences that work beautifully on every screen.</p></article>
+          <article class="card"><div class="icon">↗</div><h3>Growth &amp; impact</h3><p>Build momentum with thoughtful improvements and a focus on what matters.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about">
+        <div class="section-head">
+          <span class="eyebrow">A little about us</span>
+          <h2>Good work starts with a bold idea.</h2>
+          <p>Nova is a sample brand template. Replace this text with your story, your mission, and why people should choose you. Keep it honest, clear, and human.</p>
+          <div class="stat-row">
+            <div class="stat"><strong>12+</strong><span>Ideas launched</span></div>
+            <div class="stat"><strong>98%</strong><span>Happy clients</span></div>
+            <div class="stat"><strong>24/7</strong><span>Curiosity</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon">◎</div>
+          <h3>Made for your next chapter</h3>
+          <p>This layout is responsive, easy to edit, and built with plain HTML, CSS, and JavaScript—no frameworks or extra libraries required.</p>
+          <p style="margin-top:14px">Change the colors in <code>:root</code>, edit the content, and make it your own.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <div><span class="eyebrow">Your next step</span><h2>Have a good idea?</h2><p style="color:var(--muted);margin:0">Let's turn it into something people remember.</p></div>
+          <a class="button primary" href="mailto:hello@example.com">Email us ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container"><span>© <span id="year"></span> Nova Studio. Demo template.</span><span>Designed with curiosity ✦</span></div></footer>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
